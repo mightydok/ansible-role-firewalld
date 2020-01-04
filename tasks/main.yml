@@ -90,3 +90,13 @@
     zone: "{{ item.value.zone|default('public') }}"
   with_dict: "{{ firewalld_rich_rules|default({}) }}"
   tags: firewalld
+
+- name: enable masquerade
+  firewalld:
+    masquerade: enable
+    state: enabled
+    permanent: yes
+    immediate: yes
+    zone: "{{ default_zone|default('public') }}"
+  when:  firewalld_masquerade | bool
+
