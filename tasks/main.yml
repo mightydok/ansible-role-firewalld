@@ -103,5 +103,5 @@
     permanent: yes
     immediate: yes
     zone: "{{ default_zone|default('public') }}"
-  when:  firewalld_masquerade | default('false')
+  when:  firewalld_masquerade | default(false)
 
