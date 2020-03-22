@@ -27,7 +27,7 @@
 
 - name: set firewalld zone interface
   shell: |
-    if [[ "$(/bin/firewall-cmd --get-zone-of-interface=enp4s0)" != "public" ]]
+    if [[ "$(/bin/firewall-cmd --get-zone-of-interface="{{ item.value }}")" != {{ item.key }} ]]
     then
       /bin/firewall-cmd --zone={{ item.key }} --add-interface={{ item.value }} --permanent && echo "changed"
     fi
@@ -104,4 +104,4 @@
     immediate: yes
     zone: "{{ default_zone|default('public') }}"
   when:  firewalld_masquerade | default(false)
-
+  tags: firewalld
